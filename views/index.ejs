@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+	<script src="javascripts/angular.js"></script>
+</head>
+<body ng-app="myapp">
+	<div class="container" ng-controller="myController">
+    <form class="form-group">
+    	<h1>Form</h1>
+    	<label>Name :</label>
+    	<input class="form-control" type="text" ng-model="users.name">
+    	<label>Roll No :</label>
+    	<input class="form-control" type="text" ng-model="users.rollno">
+    	<label>Branch :</label>
+    	<input class="form-control" type="text" ng-model="users.branch">
+    	<label>College :</label>
+    	<input class="form-control" type="text" ng-model="users.college">
+    	<br>
+    	<button class="btn btn-info" ng-click="save(users)">Submit</button>
+    </form>
+    <br>
+    <table class="table table-bordered">
+    	<thead>
+    		<tr>
+                <th>S.No</th>
+    			<th>Name</th>
+    			<th>Rollno</th>
+    			<th>Branch</th>
+    			<th>College</th>
+                <th>Remove</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<tr ng-repeat="users in user">
+                <td>{{$index+1}}</td>
+    			<td>{{users.name}}</td>
+    			<td>{{users.rollno}}</td>
+    			<td>{{users.branch}}</td>
+    			<td>{{users.college}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="removeUser($index,users)">Remove</button>
+                </td>
+    		</tr>
+    	</tbody>
+    </table>
+	</div>
+</body>
+</html>
