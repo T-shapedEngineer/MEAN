@@ -28,6 +28,7 @@
     	<thead>
     		<tr>
                 <th>S.No</th>
+                <th>Id</th>
     			<th>Name</th>
     			<th>Rollno</th>
     			<th>Branch</th>
@@ -38,6 +39,7 @@
     	<tbody>
     		<tr ng-repeat="users in user">
                 <td>{{$index+1}}</td>
+                <td>{{users._id}}</td>
     			<td>{{users.name}}</td>
     			<td>{{users.rollno}}</td>
     			<td>{{users.branch}}</td>

@@ -8,6 +8,18 @@ router.get('/', function(req, res) {
   res.render('index');
 });
 
+router.get('/getuser', function(req,res){
+  collection.find({}, function(err,docs){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log(docs);
+      res.send(docs);
+    }
+  });
+});
+
 router.post('/postuser', function(req,res){
   console.log(req.body);
   collection.insert(req.body, function(err,docs){
