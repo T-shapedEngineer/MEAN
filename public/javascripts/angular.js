@@ -26,4 +26,17 @@ app.controller('myController', function($scope,$http){
     })
   }
 
+  $scope.removeUser = function(users){
+    $http({
+      method : 'DELETE',
+      url : '/deleteuser'+users._id
+    }).then(function success(response){
+      var index = $scope.user.indexOf(users);
+      $scope.user.splice(index,1);
+      //alert('removed successfully');
+    }, function error(response){
+      alert('error occured, please try again');
+    })
+  }
+
 })

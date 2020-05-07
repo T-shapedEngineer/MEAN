@@ -21,7 +21,7 @@ router.get('/getuser', function(req,res){
 });
 
 router.post('/postuser', function(req,res){
-  console.log(req.body);
+  //console.log(req.body);
   collection.insert(req.body, function(err,docs){
     if(err){
     	console.log(err);
@@ -29,6 +29,19 @@ router.post('/postuser', function(req,res){
     else{
     	console.log(docs);
     	res.send(docs);
+    }
+  });
+});
+
+router.delete('/deleteuser:id', function(req,res){
+  console.log(req.params.id);
+  collection.remove({"_id":req.params.id}, function(err,docs){
+    if(err){
+      console.log(err);
+    }
+    else{
+      //console.log(docs);
+      res.send(docs);
     }
   });
 });
