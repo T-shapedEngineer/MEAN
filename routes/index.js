@@ -33,6 +33,20 @@ router.post('/postuser', function(req,res){
   });
 });
 
+router.put('/updateuser:id', function(req,res){
+  console.log(req.params.id);
+  console.log(req.body);
+  collection.update({"_id":req.params.id},{$set:req.body}, function(err, docs){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log(docs);
+      res.send(docs);
+    }
+  })
+});
+
 router.delete('/deleteuser:id', function(req,res){
   console.log(req.params.id);
   collection.remove({"_id":req.params.id}, function(err,docs){

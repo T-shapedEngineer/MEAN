@@ -39,4 +39,16 @@ app.controller('myController', function($scope,$http){
     })
   }
 
+  $scope.updateUser = function(users){
+    $http({
+      method : 'PUT',
+      url : '/updateuser'+users._id,
+      data : users
+    }).then(function success(response){
+      alert('updated successfully')
+    }, function error(response){
+      alert('Error occured');
+    });
+  }
+
 })
