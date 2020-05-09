@@ -3,8 +3,13 @@ var router = express.Router();
 var monk = require('monk');
 var db = monk('localhost:27017/aditya');
 var collection = db.get('users');
+var signup = db.get('signup');
 /* GET home page. */
 router.get('/', function(req, res) {
+  res.render('login');
+});
+
+router.get('/home', function(req, res) {
   res.render('index');
 });
 
@@ -59,5 +64,32 @@ router.delete('/deleteuser:id', function(req,res){
     }
   });
 });
+//------------------------------login/signup-------------------------------
+router.post('/postsignup', function(req,res){
+  signup.insert(req.body, function(err,docs){
+    if(err){
+      console.log(err);
+    }
+    else{
+      res.send(docs);
+    }
+  });
+});
 
+router.post('/postlogin', function(req,res){
+  var email1 = req.body.email;
+  var password1 = req.body.password;
+  signup.findOne({"email":email1,"password":password1}, function(err,docs){
+    if(!docs){
+      console.log('Invalid Credentials');
+    }
+    else if(docs){
+      console.log('login successfull')
+      res.send(docs);
+    }
+    else{
+      console.log(err);
+    }
+  });
+});
 module.exports = router;
