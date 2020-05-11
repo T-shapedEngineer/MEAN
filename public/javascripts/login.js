@@ -1,15 +1,17 @@
 var loginapp = angular.module('loginapp',[]);
-loginapp.controller('loginController', function($scope,$http){
+loginapp.controller('loginController', function($scope,$http,$window){
 
   $scope.login = function(log){
 	  $http({
 	  	method : 'POST',
-	  	url : 'postlogin',
+	  	url : '/postlogin',
 	  	data : $scope.log
 	  }).then(function success(response){
-      alert('Login successfull');
+      //alert('Login successfull');
+      window.location.href = '/home';
 	  },function error(response){
       alert('error occured, please try again later');
+      window.location.href = '/';
 	  });
 	}
 

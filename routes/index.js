@@ -80,16 +80,16 @@ router.post('/postlogin', function(req,res){
   var email1 = req.body.email;
   var password1 = req.body.password;
   signup.findOne({"email":email1,"password":password1}, function(err,docs){
-    if(!docs){
-      console.log('Invalid Credentials');
-    }
-    else if(docs){
-      console.log('login successfull')
+    if(docs){
       res.send(docs);
     }
     else{
-      console.log(err);
+      res.sendStatus(500);
     }
   });
+});
+
+router.get('/forgot', function(req,res){
+  res.render('forgot');
 });
 module.exports = router;
