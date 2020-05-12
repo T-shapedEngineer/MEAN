@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var randomstring = require('randomstring');
+var nodemailer = require('nodemailer');
 var monk = require('monk');
 var db = monk('localhost:27017/aditya');
 var collection = db.get('users');
@@ -11,6 +13,10 @@ router.get('/', function(req, res) {
 
 router.get('/home', function(req, res) {
   res.render('index');
+});
+
+router.get('/forgot', function(req, res) {
+  res.render('forgot');
 });
 
 router.get('/getuser', function(req,res){
@@ -89,7 +95,33 @@ router.post('/postlogin', function(req,res){
   });
 });
 
-router.get('/forgot', function(req,res){
-  res.render('forgot');
+router.post('/postemail', function(req,res){
+  var email = req.body.email;
+  //console.log(req.body.email);
+  var newpassword = randomstring.generate(5);
+  //console.log(newpassword);
+  signup.update({"email":email},{$set:{"password":newpassword}})
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'sandeepsiva1121@gmail.com',
+      pass: 'Jyothsna8'
+    }
+  });
+
+  var mailOptions = {
+    from: 'Technicalhub',
+    to: email,
+    subject: 'New password',
+    text: 'your new password is'+newpassword
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent');
+    }
+  });
 });
 module.exports = router;
