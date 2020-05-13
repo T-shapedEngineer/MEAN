@@ -2,13 +2,19 @@ var express = require('express');
 var router = express.Router();
 var randomstring = require('randomstring');
 var nodemailer = require('nodemailer');
+var moment = require('moment');
 var monk = require('monk');
 var db = monk('localhost:27017/aditya');
 var collection = db.get('users');
 var signup = db.get('signup');
+var birth = db.get('birth');
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('login');
+});
+
+router.get('/birthday', function(req, res) {
+  res.render('birthday');
 });
 
 router.get('/home', function(req, res) {
@@ -124,4 +130,39 @@ router.post('/postemail', function(req,res){
     }
   });
 });
+
+router.post('/postbirth', function(req,res){
+  var dob = moment(req.body.dob).format('DD-MM');
+  console.log(dob);
+  var presentdate = moment().format('DD-MM');
+  console.log(presentdate);
+  var email = req.body.email;
+  var name = req.body.name;
+  birth.insert(req.body, function(err,docs){
+    
+  });
+  // var transporter = nodemailer.createTransport({
+  //   service: 'gmail',
+  //   auth: {
+  //     user: 'sandeepsiva1121@gmail.com',
+  //     pass: 'Jyothsna8'
+  //   }
+  // });
+
+  // var mailOptions = {
+  //   from: 'Technicalhub',
+  //   to: email,
+  //   subject: 'Birthday Wishes',
+  //   text: 'Happy Birthday'+name
+  // };
+
+  // transporter.sendMail(mailOptions, function(error, info){
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     console.log('Email sent');
+  //   }
+  //  });
+});
+
 module.exports = router;
